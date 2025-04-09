@@ -27,3 +27,10 @@ git add "$DEST_DIR/$FILENAME"
 git commit -m "$DATE leetcode"
 
 echo "✅ Saved to $DEST_DIR/$FILENAME"
+echo "Following is git log and File content:"
+
+git log -1
+
+echo "======= File start ======="
+cat $DEST_DIR/$FILENAME
+echo "======= File end ======="
