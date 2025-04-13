@@ -1,5 +1,7 @@
 #!/bin/bash
 
+git pull
+
 # Prompt for submission URL
 read -p "Enter LeetCode submission URL: " SUBMISSION_URL
 
