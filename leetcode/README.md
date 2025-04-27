@@ -1,5 +1,7 @@
 # LeetCode Solving
 
+## For Daily Problem
+
 ```bash
 ./make_file.sh
 ```
@@ -11,5 +13,19 @@
 3. Copy-paste Code And `Ctrl+D`
 
 Then, code will be saved to `%Y%M/%Y%M%D-{ProblemNumber}-{ProblemName}.cpp`, and add & commit with the message "%Y%M leetcode".
+
+Check the commit and push it if it is correct.
+
+## For Normal Problems
+
+```bash
+./normal_file.sh
+```
+
+1. Copy-paste Problem URL
+2. Copy-paste Problem Number
+3. Copy-paste Code and `Ctrl+D`
+
+Then, code will be saved to `problem/{ProblemNumber}-{ProblemName}.cpp`, and add & commit with the message "leetcode #{ProblemNumber}".
 
 Check the commit and push it if it is correct.
