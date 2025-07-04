@@ -8,9 +8,11 @@ read -p "Enter LeetCode submission URL: " SUBMISSION_URL
 # Prompt for problem number
 read -p "Enter problem number: " PROBLEM_NUMBER
 
-# Get current date in YYMMDD format
-DATE=$(date '+%y%m%d')
-FOLDER=$(date '+%y%m')
+# Prompt for date
+CUR_DATE=$(date '+%y%m%d')
+read -p "Enter current date(Default=$CUR_DATE): " DATE
+: ${DATE:=$CUR_DATE}
+FOLDER=${DATE:0:4}
 
 # Extract problem slug from URL
 PROBLEM_SLUG=$(echo "$SUBMISSION_URL" | sed -E 's#.*/problems/([^/]+)/.*#\1#')
