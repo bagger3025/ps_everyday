@@ -1,0 +1,6 @@
+testcase/**/stress/input*
+testcase/**/stress/output*
+testcase/**/stress/ref*
+testcase/**/out.txt
+e*
+ref
