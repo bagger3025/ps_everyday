@@ -3,4 +3,7 @@ testcase/**/stress/output*
 testcase/**/stress/ref*
 testcase/**/out.txt
 e*
-ref
+ref*
+testcase/stress
+testcase/src.cpp
+testcase/tc

@@ -3,32 +3,43 @@
 
 using namespace std;
 
-struct vec_ele {
-	int l;
-	int r;
-	int p;
-	int q;
-};
+typedef long long ll;
 
-const int MOD = 998244353;
-
-int rev_mod(int r) {
-	
-}
+#define forn(i, x) for(int i = 0; i < int(x); i++)
 
 void solve() {
-	int n, m; cin >> n >> m;
-	vector<vec_ele> v;
-	for (int i = 0; i < n; i++) {
-		int l, r, p, q; cin >> l >> r >> p >> q;
-		v.push_back({l, r, p, q});
-	}
+	ll l, r; cin >> l >> r;
 
+	ll ans = r - l + 1;
+
+	ans -= r / 2 - (l - 1) / 2;
+	ans -= r / 3 - (l - 1) / 3;
+	ans -= r / 5 - (l - 1) / 5;
+	ans -= r / 7 - (l - 1) / 7;
+
+	ans += r / 6 - (l - 1) / 6;
+	ans += r / 10 - (l - 1) / 10;
+	ans += r / 14 - (l - 1) / 14;
+	ans += r / 15 - (l - 1) / 15;
+	ans += r / 21 - (l - 1) / 21;
+	ans += r / 35 - (l - 1) / 35;
+
+	ans -= r / 30 - (l - 1) / 30;
+	ans -= r / 42 - (l - 1) / 42;
+	ans -= r / 70 - (l - 1) / 70;
+	ans -= r / 105 - (l - 1) / 105;
+
+	ans += r / 210 - (l - 1) / 210;
+
+	cout << ans << "\n";
 }
 
 int main() {
 	ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
 
-	solve();
+	int t; cin >> t;
+	forn(i, t) {
+		solve();
+	}
 	return 0;
 }
