@@ -1,4 +1,8 @@
 **/[a-z]
+**/[a-z][0-9]
+!**/testcase
 **/ref*
 **/tc
-**/st
+**/stress
+**/src
+**/*.dSYM
