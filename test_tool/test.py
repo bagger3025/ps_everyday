@@ -4,9 +4,12 @@ from os.path import isfile, isdir, join, abspath, dirname
 
 STRESS_TEST = 500
 
-PROBLEM_NUM = "f"
+PROBLEM_NUM = "g"
+CODE_RELPATH = "../codeforces/2152_Squarepoint_Challenge_Round_1055_Div12"
+
+
 CUR_DIR = dirname(abspath(__file__))
-CODE_PATH = f"{CUR_DIR}/../codeforces/2125_Educational_Codeforces_Round_181"
+CODE_PATH = f"{CUR_DIR}/{CODE_RELPATH}"
 TEST_DIR = f"{CODE_PATH}/testcase/{PROBLEM_NUM}"
 EXEC = f"{CODE_PATH}/{PROBLEM_NUM}"
 REF = f"{CODE_PATH}/ref_{PROBLEM_NUM}"

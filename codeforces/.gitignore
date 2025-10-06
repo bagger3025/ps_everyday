@@ -1,6 +1,6 @@
 **/[a-z]
 **/[a-z][0-9]
-!**/testcase
+!**/testcase/*
 **/ref*
 **/tc
 **/stress
