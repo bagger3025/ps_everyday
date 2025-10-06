@@ -5,7 +5,7 @@ from os.path import isfile, isdir, join, abspath, dirname
 STRESS_TEST = 500
 
 PROBLEM_NUM = "g"
-CODE_RELPATH = "../codeforces/2152_Squarepoint_Challenge_Round_1055_Div12"
+CODE_RELPATH = "../codeforces/2149_Codeforces_Round_1054_Div3"
 
 
 CUR_DIR = dirname(abspath(__file__))
@@ -35,14 +35,20 @@ def run_test():
         os.system(f"{EXEC} < {input_file} > {output_file}")
 
         with open(ref_file, "r") as f:
-            ref_str = "".join(f.readlines()).strip()
+            ref_str = (
+                "\n".join([line.strip() for line in f.readlines()])
+                .strip()
+                .replace("\n", "\\n")
+            )
         with open(output_file, "r") as f:
-            out_str = "".join(f.readlines()).strip()
+            out_str = (
+                "\n".join([line.strip() for line in f.readlines()])
+                .strip()
+                .replace("\n", "\\n")
+            )
 
         if ref_str != out_str:
-            print(
-                f"Expected [{ref_str.replace('\n', '\\n')}], but got [{out_str.replace('\n', '\\n')}]! Check {output_file}"
-            )
+            print(f"Expected [{ref_str}], but got [{out_str}]! Check {output_file}")
             exit(1)
 
         os.system(f"rm -f {output_file}")
@@ -51,6 +57,9 @@ def run_test():
 
 
 def check_if_file_exists():
+    if not isdir(STRESS_DIR):
+        print("STRESS_DIR not exists, skip moving")
+        return
     files = [
         f
         for f in listdir(STRESS_DIR)
@@ -59,9 +68,7 @@ def check_if_file_exists():
 
     if len(files) % 3 != 0:
         print("Manually organize files, or files will be rewritten")
-        print(f"Check: {STRESS_DIR}")
-        files = " ".join([f"{STRESS_DIR}/{f}" for f in files])
-        os.system(f"rm -i {files}")
+        print(f"Check: {STRESS_DIR.replace(CODE_PATH, '.')}")
         exit(1)
 
     max_num = (
@@ -82,13 +89,18 @@ def check_if_file_exists():
 
     if len(inputs) != len(outputs) or len(outputs) != len(refs):
         print("Manually organize files, or files will be rewritten")
-        print(f"Check: {STRESS_DIR}")
-        files = " ".join([f"{STRESS_DIR}/{f}" for f in files])
-        os.system(f"rm -i {files}")
+        print(f"Check: {STRESS_DIR.replace(CODE_PATH, '.')}")
         exit(1)
 
     for f in inputs:
         num_f = f[5:]
+        print(
+            f"move {STRESS_DIR.replace(CODE_PATH, '.')}/"
+            + "{input,ref}"
+            + f"{num_f} => "
+            + "{input,output}"
+            + f"{max_num}.txt, delete {STRESS_DIR.replace(CODE_PATH, '.')}/output{num_f}"
+        )
         os.system(f"mv {STRESS_DIR}/input{num_f} {TEST_DIR}/input{max_num}.txt")
         os.system(f"mv {STRESS_DIR}/ref{num_f} {TEST_DIR}/output{max_num}.txt")
         os.system(f"rm {STRESS_DIR}/output{num_f}")
@@ -96,7 +108,6 @@ def check_if_file_exists():
 
 
 def stress_test():
-    check_if_file_exists()
     if not isdir(STRESS_DIR):
         print("STRESS_DIR not set, skip stress test")
         return
@@ -116,13 +127,21 @@ def stress_test():
         os.system(f"{REF} < {stress_input_file} > {stress_ref_file}")
 
         with open(stress_ref_file, "r") as f:
-            ref_str = "\\n".join(f.readlines()).strip()
+            ref_str = (
+                "\n".join([line.strip() for line in f.readlines()])
+                .strip()
+                .replace("\n", "\\n")
+            )
         with open(stress_output_file, "r") as f:
-            out_str = "\\n".join(f.readlines()).strip()
+            out_str = (
+                "\n".join([line.strip() for line in f.readlines()])
+                .strip()
+                .replace("\n", "\\n")
+            )
 
         if ref_str != out_str:
             print(
-                f"Expected [{ref_str}], but got [{out_str}]! Check {STRESS_DIR.replace(CUR_DIR, '')}"
+                f"Expected [{ref_str}], but got [{out_str}]! Check {STRESS_DIR.replace(CUR_DIR, '.')}"
             )
             exit(1)
 
@@ -135,6 +154,7 @@ if __name__ == "__main__":
         print(f"{EXEC} is not file, exit!")
         exit(1)
 
+    check_if_file_exists()
     if os.environ.get("SKIP_PREDEFINED", "false") == "false":
         run_test()
     else:
