@@ -1,0 +1,15 @@
+PROBLEM=f
+
+all: e_$(PROBLEM)
+e_$(PROBLEM): $(PROBLEM).cpp
+	g++ -O2 -std=c++17 -o $@ $< -fsanitize=address
+
+ref: w_$(PROBLEM)
+w_$(PROBLEM): $(PROBLEM)_ref.cpp
+	g++ -O2 -std=c++17 -o $@ $<
+
+
+%: %.cpp
+	g++ -O2 -std=c++17 -o $@ $< -Wall
+
+.PHONY: all ref
