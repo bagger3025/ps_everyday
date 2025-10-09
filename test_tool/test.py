@@ -1,21 +1,24 @@
 import os
 from os import listdir
 from os.path import isfile, isdir, join, abspath, dirname
+import subprocess
 
 STRESS_TEST = 500
+OVERHEAD_TEST = 100
 
-PROBLEM_NUM = "g"
-CODE_RELPATH = "../codeforces/2149_Codeforces_Round_1054_Div3"
+PROBLEM_NUM = "c"
+CODE_RELPATH = "../codeforces/2145_Educational_Codeforces_Round_183"
 
 
 CUR_DIR = dirname(abspath(__file__))
 CODE_PATH = f"{CUR_DIR}/{CODE_RELPATH}"
 TEST_DIR = f"{CODE_PATH}/testcase/{PROBLEM_NUM}"
-EXEC = f"{CODE_PATH}/{PROBLEM_NUM}"
-REF = f"{CODE_PATH}/ref_{PROBLEM_NUM}"
+EXEC = f"{CODE_PATH}/e_{PROBLEM_NUM}"
+REF = f"{CODE_PATH}/w_{PROBLEM_NUM}"
 
 STRESS_DIR = f"{TEST_DIR}/stress"
 GENERATE_FILE = f"{STRESS_DIR}/gen.py"
+OVERHEAD_GENERATE_FILE = f"{STRESS_DIR}/gen_overhead.py"
 GENERATE_EXEC = f"python3 {GENERATE_FILE}"
 
 
@@ -149,14 +152,40 @@ def stress_test():
     print("STRESS TEST passed!")
 
 
+def overhead_test():
+    print("Overhead test Started")
+    for i in range(OVERHEAD_TEST):
+        if i % (OVERHEAD_TEST // 10) == 0:
+            print(f"{i} / {OVERHEAD_TEST}")
+
+        input_file = f"{STRESS_DIR}/input{i}"
+        output_file = f"{STRESS_DIR}/output{i}"
+
+        # make input file
+        os.system(f"python3 {OVERHEAD_GENERATE_FILE} > {input_file}")
+
+        # < stress/input{i} > stress/my_output
+        try:
+            process = subprocess.Popen(
+                EXEC,
+                stdin=open(input_file, "r"),
+                stdout=open(output_file, "w"),
+                text=True,
+            )
+            _, _ = process.communicate(timeout=1)
+        except subprocess.TimeoutExpired:
+            print("Overhead Test Timeout")
+            exit(1)
+
+        os.system(f"rm {input_file} {output_file}")
+
+
 if __name__ == "__main__":
     if not isfile(EXEC):
         print(f"{EXEC} is not file, exit!")
         exit(1)
 
     check_if_file_exists()
-    if os.environ.get("SKIP_PREDEFINED", "false") == "false":
-        run_test()
-    else:
-        print("SKIP_PREDEFINED set, skipping")
-    stress_test()
+    run_test()
+    # stress_test()
+    overhead_test()

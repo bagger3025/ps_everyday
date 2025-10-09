@@ -6,3 +6,6 @@
 **/stress
 **/src
 **/*.dSYM
+**/src.cpp
+**/e_*
+**/w_*
