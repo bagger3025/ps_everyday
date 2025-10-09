@@ -2,8 +2,7 @@ testcase/**/stress/input*
 testcase/**/stress/output*
 testcase/**/stress/ref*
 testcase/**/out.txt
-e*
-ref*
-testcase/stress
-testcase/src.cpp
-testcase/tc
+e_*
+w_*
+tc
+src.cpp
