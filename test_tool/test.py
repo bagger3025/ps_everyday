@@ -6,7 +6,7 @@ import subprocess
 STRESS_TEST = 500
 OVERHEAD_TEST = 100
 
-PROBLEM_NUM = "c"
+PROBLEM_NUM = "g"
 CODE_RELPATH = "../codeforces/2145_Educational_Codeforces_Round_183"
 
 
@@ -153,6 +153,10 @@ def stress_test():
 
 
 def overhead_test():
+    if not isfile(OVERHEAD_GENERATE_FILE):
+        print(f"File {OVERHEAD_GENERATE_FILE.replace(CODE_PATH, '.')} not exists, skip")
+        return
+
     print("Overhead test Started")
     for i in range(OVERHEAD_TEST):
         if i % (OVERHEAD_TEST // 10) == 0:
