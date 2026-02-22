@@ -14,8 +14,13 @@ FOLDER=problem
 # Extract problem slug from URL
 PROBLEM_SLUG=$(echo "$SUBMISSION_URL" | sed -E 's#.*/problems/([^/]+)/.*#\1#')
 
+
+#Prompt for extension
+read -p "Enter the language you solved with(Default=cpp): " EXT
+: ${EXT:=cpp}
+
 # Build filename and destination directory
-FILENAME="${PROBLEM_NUMBER}-${PROBLEM_SLUG}.cpp"
+FILENAME="${PROBLEM_NUMBER}-${PROBLEM_SLUG}.${EXT}"
 DEST_DIR="./$FOLDER"
 mkdir -p "$DEST_DIR"
 
